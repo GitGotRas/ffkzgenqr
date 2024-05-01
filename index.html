@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="css/materialize.min.css">
+<title>Генерирование QR кода, для пополнения своего счёта в Freedom Finance Казахстан</title>
+<meta name="keywords" content="Генерирование QR кода, пополнение счета, Freedom Finance Казахстан, пополнение счета в Freedom Finance Казахстан, как пополнить счет в Freedom Finance Казахстан, Генерация QR кода, пополнение счета, Freedom Finance Казахстан, пополнение счета в Freedom Finance Казахстан, пополнить счет в Freedom Finance Казахстан, перевод средств">
+<style>
+    .custom-button {
+      width: 100%;
+    }
+    .input-field label {
+      color: #000;
+    }
+    .row {
+        margin-bottom: 10px;
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <h4 class="center-align">Генерирование QR кода, для пополнения своего счёта в Freedom Finance Казахстан</h4>
+        <div class="row">
+            <div class="col s12">
+                <label>
+                    <input type="radio" id="viacifrabank" name="formType" value="viacifrabank" checked>
+                    <span>Через Цифра Банк</span>
+                </label>
+                <label>
+                    <input type="radio" id="viaraiffeisen" name="formType">
+                    <span>Через Райфанзен банк</span>
+                </label>
+            </div>
+        </div>
+
+        <div id="formContainer">
+            <div id="viacifrabankContent">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <label for="cirfa_fullname">ФИО:</label>
+                        <input type="text" id="cirfa_fullname" >
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m4">
+                        <label for="cifra_iin">Введите Ваш ИИН Казахстана (12 цифр):</label>
+                        <input type="text" id="cifra_iin" maxlength="12">
+                    </div>
+                    <div class="input-field col s12 m4">
+                        <label for="cifra_ffrubacc">Укажите номер RUB счета во FF (18 символов):</label>
+                        <input type="text" id="cifra_ffrubacc" maxlength="18">
+                    </div>
+                    <div class="input-field col s12 m4">
+                        <label for="cifra_adresseebankname">Название банка адрессата:</label>
+                        <input type="text" id="cifra_adresseebankname" value="АО БАНК ФРИДОМ ФИНАНС КАЗАХСТАН">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m4">
+                        <label for="cifra_personalacc">Лицевый счет:</label>
+                        <input type="text" id="cifra_personalacc" value="30111810900000031199">
+                    </div>
+                    <div class="input-field col s12 m4">
+                        <label for="cifra_bankname">Название банка:</label>
+                        <input type="text" id="cifra_bankname" value="ООО ФФИН Банк">
+                    </div>
+                    <div class="input-field col s12 m4">
+                        <label for="cifra_bic">БИК (BIC):</label>
+                        <input type="text" id="cifra_bic" value="044525900">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m4">
+                        <label for="cifra_corracc">Корреспондентский счёт:</label>
+                        <input type="text" id="cifra_corracc" value="30101810245250000900">
+                    </div>
+                    <div class="input-field col s12 m4">
+                        <label for="cifra_inn">ИНН получателя платежа:</label>
+                        <input type="text" id="cifra_inn"  value="6506000327">
+                    </div>
+                    <div class="input-field col s12 m4">
+                        <label for="cifra_kpp">КПП (KPP):</label>
+                        <input type="text" id="cifra_kpp"  value="770701001">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s6">
+                        <button onclick="combineText()" class="btn waves-effect waves-light custom-button">Объединить текст</button>
+                    </div>
+                    <div class="col s6">
+                        <button onclick="generateQRCodeForm1()" class="btn waves-effect waves-light custom-button">Сгенерировать QR-код</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="viaraiffeisenContent" style="display: none;">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <label for="raif_fullname">ФИО:</label>
+                        <input type="text" id="raif_fullname">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m4">
+                        <label for="raif_iin">Введите Ваш ИИН Казахстана (12 цифр):</label>
+                        <input type="text" id="raif_iin" maxlength="12">
+                    </div>
+                    <div class="input-field col s12 m4">
+                        <label for="raif_ffrubacc">Укажите номер RUB счета во FF (18 символов):</label>
+                        <input type="text" id="raif_ffrubacc" maxlength="18">
+                    </div>
+                    <div class="input-field col s12 m4">
+                        <label for="raif_adresseebankname">Название банка адрессата:</label>
+                        <input type="text" id="raif_adresseebankname" value="АО ЕВРАЗИЙСКИЙ БАНК">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m4">
+                        <label for="raif_personalacc">Лицевый счет:</label>
+                        <input type="text" id="raif_personalacc" value="30111810800000000088">
+                    </div>
+                    <div class="input-field col s12 m4">
+                        <label for="raif_bankname">Название банка:</label>
+                        <input type="text" id="raif_bankname" value="АО РАЙФФАЙЗЕНБАНК">
+                    </div>
+                    <div class="input-field col s12 m4">
+                        <label for="raif_bic">БИК (BIC):</label>
+                        <input type="text" id="raif_bic" value="044525700">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m4">
+                        <label for="raif_corracc">Корреспондентский счёт:</label>
+                        <input type="text" id="raif_corracc" value="30101810200000000700">
+                    </div>
+                    <div class="input-field col s12 m4">
+                        <label for="raif_inn">ИНН получателя платежа:</label>
+                        <input type="text" id="raif_inn" value="7744000302">
+                    </div>
+                    <div class="input-field col s12 m4">
+                        <label for="raif_kpp">КПП (KPP):</label>
+                        <input type="text" id="raif_kpp" value="770401001">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s6">
+                        <button onclick="combineText()" class="btn waves-effect waves-light custom-button">Объединить текст</button>
+                    </div>
+                    <div class="col s6">
+                        <button onclick="generateQRCodeForm2()" class="btn waves-effect waves-light custom-button">Сгенерировать QR-код</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s6">
+                    <textarea id="combinedText" class="materialize-textarea" placeholder="Здесь будет объединенный текст" style="height: 270px;" readonly></textarea>
+                </div>
+                <div class="col s6">
+                    <div id="qrCode"></div>
+                    <div id="qr"></div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <p>Для первого перевода, лучше начать с небольшой суммы, например, 100 рублей, чтобы протестировать процесс и сохранить настройки для будущих транзакций. После подтверждения зачисления средств можно отправлять более крупные суммы, следуя сохраненному шаблону. Обычно такие переводы зачисляются на счет в течение двух рабочих дней. Важно помнить, что обработка таких переводов происходит только в рабочие дни банков.</br>Рекомендуется использовать банки РФ для отправки таких переводов, чтобы избежать возможных проблем с возвратом средств, так как казахстанский банк может отклонить перевод, если банк отправителя находится под санкциями.</p>
+        </div>
+    </div>
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/materialize.min.js"></script>
+    <script src="js/qrcode.js"></script>
+    <script src="js/qrcode_UTF8.js"></script>
+    <script>
+        function combineText() {
+            var input1, input2, input3, input4, input5, input6, input7, input8, input9, input10;
+            if (document.getElementById('viacifrabank').checked) {
+                input1 = document.getElementById('cirfa_fullname').value;
+                input2 = document.getElementById('cifra_iin').value;
+                input3 = document.getElementById('cifra_ffrubacc').value;
+                input4 = document.getElementById('cifra_adresseebankname').value;
+                input5 = document.getElementById('cifra_personalacc').value;
+                input6 = document.getElementById('cifra_bankname').value;
+                input7 = document.getElementById('cifra_bic').value;
+                input8 = document.getElementById('cifra_corracc').value;
+                input9 = document.getElementById('cifra_inn').value;
+                input10 = document.getElementById('cifra_kpp').value;
+
+                var combinedText = "ST00012\n" + 
+            "|Name=" + input4 + "\n" + 
+            "|BankName=" + input6 + "\n" +
+            "|BIC=" + input7 + "\n" +
+            "|CorrespAcc=" + input8 + "\n" +
+            "|Purpose=Получатель " + input1 + " ИИН " + input2 + " Счет " + input3 + " Перевод собственных средств" + "\n" +
+            "|PayeeINN=" + input9 + "\n" +
+            "|KPP=" + input10;
+            } else {
+                input1 = document.getElementById('raif_fullname').value;
+                input2 = document.getElementById('raif_iin').value;
+                input3 = document.getElementById('raif_ffrubacc').value;
+                input4 = document.getElementById('raif_adresseebankname').value;
+                input5 = document.getElementById('raif_personalacc').value;
+                input6 = document.getElementById('raif_bankname').value;
+                input7 = document.getElementById('raif_bic').value;
+                input8 = document.getElementById('raif_corracc').value;
+                input9 = document.getElementById('raif_inn').value;
+                input10 = document.getElementById('raif_kpp').value;
+
+                var combinedText = "ST00012\n" + 
+            "|Name=" + input4 + "\n" + 
+            "|BankName=" + input6 + "\n" +
+            "|BIC=" + input7 + "\n" +
+            "|CorrespAcc=" + input8 + "\n" +
+            "|Purpose=АО Банк Фридом Финанс Казахстан KZ2394800RUB20130006 Получатель " + input1 + " ИИН " + input2 + " Счет " + input3 + " Перевод собственных средств" + "\n" +
+            "|PayeeINN=" + input9 + "\n" +
+            "|KPP=" + input10;
+            }
+            
+            
+            document.getElementById('combinedText').value = combinedText;
+
+            
+        }
+
+        function generateQRCode() {
+            var text = document.getElementById('combinedText').value;
+            var qrCodeDiv = document.getElementById('qrCode');
+            
+            if (text.trim() === '') {
+                qrCodeDiv.innerHTML = '';
+                return;
+            }
+            
+            qrCodeDiv.innerHTML = '';
+            
+            var qr = qrcode(0, 'L');
+            qr.addData(text);
+            qr.make();
+            
+            var qrImg = qr.createImgTag(4, 0);
+            
+            qrCodeDiv.innerHTML = qrImg;
+        }
+        
+        function generateQRCodeForm1() {
+            combineText();
+            generateQRCode();
+        }
+        
+        function generateQRCodeForm2() {
+            combineText();
+            generateQRCode();
+        }
+        
+        document.getElementById('viacifrabank').addEventListener('click', function() {
+            document.getElementById('viacifrabankContent').style.display = 'block';
+            document.getElementById('viaraiffeisenContent').style.display = 'none';
+            // Очищаем поле ввода текста
+            document.getElementById('combinedText').value = '';
+            // Очищаем отображение QR-кода
+            document.getElementById('qrCode').innerHTML = '';
+        });
+        
+        document.getElementById('viaraiffeisen').addEventListener('click', function() {
+            document.getElementById('viacifrabankContent').style.display = 'none';
+            document.getElementById('viaraiffeisenContent').style.display = 'block';
+            // Очищаем поле ввода текста
+            document.getElementById('combinedText').value = '';
+            // Очищаем отображение QR-кода
+            document.getElementById('qrCode').innerHTML = '';
+        });
+    </script>
+    <div class="footer-copyright center">
+        После регерации QR кода, его можно сохранить как картинку</br>
+        <script type="text/javascript">document.write(new Date().getFullYear());</script> Powered by 
+        <a href="https://materializecss.com/" rel="noopener noreferrer" target="_blank">Materialize</a> & 
+        <a href="https://github.com/kazuhikoarase/qrcode-generator" rel="noopener noreferrer" target="_blank">qrcode-generator</a> &
+        <a href="https://forum.awd.ru/gallery/album.php?album_id=69260" rel="noopener noreferrer" target="_blank">Форум Винского</a> 
+    </div>
+</body>
+</html>
